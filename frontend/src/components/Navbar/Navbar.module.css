@@ -65,6 +65,15 @@
   background-color: #333;
 }
 
+.chatLink {
+  font-size: 0.85rem;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.chatLink:hover { color: #4a90d9; }
+
 @media (max-width: 600px) {
   .navbar {
     flex-direction: column;

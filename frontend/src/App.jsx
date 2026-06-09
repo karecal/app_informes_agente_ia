@@ -18,6 +18,7 @@ import InformeFormPage from './pages/InformeFormPage/InformeFormPage'
 import InformeEditPage from './pages/InformeEditPage/InformeEditPage'
 import BienFormPage from './pages/BienFormPage/BienFormPage'
 import BienEditPage from './pages/BienEditPage/BienEditPage'
+import ChatPage from './pages/ChatPage/ChatPage'
 
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
           {/* Informes */}
           <Route path="/informe/nuevo" element={<ProtectedRoute><InformeFormPage /></ProtectedRoute>} />
           <Route path="/informe/:id/editar" element={<ProtectedRoute><InformeEditPage /></ProtectedRoute>} />
+
+          {/* Chat IA */}
+          <Route path="/chat" element={<ChatPage />} />
 
           {/* 404 */}
           <Route path="*" element={<NotFoundPage />} />

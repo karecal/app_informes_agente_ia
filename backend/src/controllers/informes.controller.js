@@ -110,8 +110,9 @@ export const crearInforme = async (req, res, next) => {
 enviarNotificacionInforme({
   titulo: informe.titulo,
   bien: informe.bien.nombre,
-  restaurador: informe.restaurador.nombre
-}).catch(err => console.error('Error enviando email:', err))
+  restaurador: informe.restaurador.nombre,
+  estado: informe.estado
+}).catch(err => console.error('Error enviando webhook N8N:', err))
     res.status(201).json(informe)
   } catch (err) {
     next(err)

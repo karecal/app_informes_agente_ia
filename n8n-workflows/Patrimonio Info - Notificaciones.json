@@ -1,0 +1,115 @@
+{
+  "name": "Patrimonio Info - Notificaciones",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "informe-creado",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4616333e-1c1a-4fcc-820c-74c61d87de24",
+      "name": "Webhook",
+      "webhookId": "01c27775-66b9-4573-bf58-e7edd16dd84d"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c8bee7fd-74d8-428c-9180-2dd37cd87ea9",
+              "leftValue": "={{ $json.body.estado }}",
+              "rightValue": "FINALIZADO",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "57667042-7bd3-481f-9834-e895888a479f",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fromEmail": "hola.patrimonio.info@gmail.com",
+        "toEmail": "hola.patrimonio.info@gmail.com",
+        "subject": "=Nuevo informe: {{ $json.body.titulo }}",
+        "html": "=Se ha creado un nuevo informe de conservación-restauración.\n\nBien patrimonial: {{ $json.body.bien }}\nTítulo: {{ $json.body.titulo }}\nRestaurador: {{ $json.body.restaurador }}\nEstado: {{ $json.body.estado }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        416,
+        -96
+      ],
+      "id": "f97fcfd1-8d90-4899-85dc-667f501b9516",
+      "name": "Send an Email",
+      "webhookId": "591266af-f596-473b-bb45-e7a87fa6fabe",
+      "credentials": {
+        "smtp": {
+          "id": "CdM4lN37k2QyoWUf",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d00a2502-2ff1-4d6b-8d21-80000aa38ecc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eaf64a83e0ad97ac1c918ee4ab2e3bb897e3386e7da201cf1d398ec30a07d7bf"
+  },
+  "id": "8D3cVkyDkN1V768Z",
+  "tags": []
+}

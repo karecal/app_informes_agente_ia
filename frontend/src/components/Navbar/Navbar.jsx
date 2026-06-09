@@ -20,6 +20,7 @@ function Navbar() {
         <img src={logo} alt="Patrimonio Info" className={styles.logo} />
       </Link>
       <div className={styles.right}>
+        <Link to="/chat" className={styles.chatLink}>🏛️ Asistente IA</Link>
         <span className={styles.clock}>{time}</span>
         {isAuthenticated ? (
           <>

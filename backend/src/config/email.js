@@ -1,24 +1,15 @@
-import nodemailer from 'nodemailer'
+import fetch from 'node-fetch'
 
-export const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || 'http://localhost:5678/webhook/informe-creado'
+
+export const enviarNotificacionInforme = async ({ titulo, bien, restaurador, estado = 'EN_CURSO' }) => {
+  try {
+    await fetch(N8N_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ titulo, bien, restaurador, estado })
+    })
+  } catch (err) {
+    console.error('Error enviando webhook a N8N:', err.message)
   }
-})
-
-export const enviarNotificacionInforme = async ({ titulo, bien, restaurador }) => {
-  await transporter.sendMail({
-    from: `"Patrimonio Info" <${process.env.EMAIL_USER}>`,
-    to: process.env.EMAIL_ADMIN,
-    subject: `Nuevo informe: ${titulo}`,
-    html: `
-      <h2>Nuevo informe de conservación registrado</h2>
-      <p><strong>Bien patrimonial:</strong> ${bien}</p>
-      <p><strong>Título:</strong> ${titulo}</p>
-      <p><strong>Restaurador:</strong> ${restaurador}</p>
-      <p>Accede a la aplicación para ver los detalles completos.</p>
-    `
-  })
 }
